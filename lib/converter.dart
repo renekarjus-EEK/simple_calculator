@@ -36,16 +36,14 @@ double kmToMiles = 0;
 double milesToKm = 0;
 
 void convertKmToMiles (km){
-  final km = double.parse(kmController.text);
-  setState(() {
+    setState(() {
     kmToMiles = km * 0.621371;
   });
 }
 
 void convertMilesToKm (miles){
-    final miles = double.parse(milesController.text);
     setState(() {
-      milesToKm = miles * 1.60934;
+    milesToKm = miles * 1.60934;
     });
   }
 
@@ -69,7 +67,7 @@ void convertMilesToKm (miles){
 
               TextFormField(                              //input field for km
                 controller: kmController,
-                onChanged: (text) {convertKmToMiles(kmController.text);},  //convert
+                onChanged: (text) {convertKmToMiles(double.parse(kmController.text));},  //convert
                 decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     hintText: 'Enter kilometers'
@@ -82,11 +80,7 @@ void convertMilesToKm (miles){
 
               Text(                                                    //print conversion results
               kmController.text +" kilometers is " + kmToMiles.toStringAsFixed(2)+" miles ",  //round to two decimals
-              style: TextStyle(
-              color: Colors.grey[800],
-              fontWeight: FontWeight.w900,
-              fontFamily: 'Open Sans',
-              fontSize: 25),
+                style: Theme.of(context).textTheme.bodyText1,
               ),
 
               const Padding(
@@ -94,7 +88,7 @@ void convertMilesToKm (miles){
 
               TextFormField(                            //input field for miles
                 controller: milesController,
-                onChanged: (text) {convertMilesToKm(milesController.text);},
+                onChanged: (text) {convertMilesToKm(double.parse(milesController.text));},
                 decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     hintText: 'Enter miles'
@@ -107,11 +101,7 @@ void convertMilesToKm (miles){
 
               Text(                                                    //print conversion results
               milesController.text +" miles is " + milesToKm.toStringAsFixed(2)+" kilometers ",
-              style: TextStyle(
-              color: Colors.grey[800],
-              fontWeight: FontWeight.w900,
-              fontFamily: 'Open Sans',
-              fontSize: 25),
+                style: Theme.of(context).textTheme.bodyText1,
               ),
 
               const Padding(

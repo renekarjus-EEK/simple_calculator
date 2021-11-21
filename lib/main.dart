@@ -14,6 +14,13 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       title: appTitle,
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        textTheme: const TextTheme(
+          bodyText1: TextStyle (color: Colors.white, fontWeight: FontWeight.w900, fontFamily: 'Open Sans', fontSize: 25)
+
+        )
+      ),
       home: Scaffold(
         appBar: AppBar(
           title: const Text(appTitle),
@@ -47,9 +54,7 @@ class CalculatorFormState extends State<CalculatorForm> {
   double resultDivide = 0;
   num resultPower = 0;
 
-  void calculate(firstNumber, secondNumber) {    //function for calculations, will not return anything, only does calculations
-    final firstNumber = double.parse(firstNumberController.text);   //parse from string to double and assign value of the input text to variable.
-    final secondNumber = double.parse(secondNumberController.text);
+  void calculate(double firstNumber, double secondNumber) {    //function for calculations, will not return anything, only does calculations
     setState(() {               //let flutter know that some object has changed
         resultAdd = firstNumber + secondNumber;
         resultSubtract = firstNumber - secondNumber;
@@ -77,13 +82,14 @@ class CalculatorFormState extends State<CalculatorForm> {
     return Form(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
+
         children: [
           const Padding(
               padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),),
 
           TextFormField(                              //input field for first number
             controller: firstNumberController,
-            onChanged: (text) {calculate(firstNumberController.text, secondNumberController.text);},  //calculate answers once a number has been entered
+            onChanged: (text) {calculate(double.parse(firstNumberController.text), double.parse(secondNumberController.text));},  //calculate answers once a number has been entered
             decoration: const InputDecoration(
             border: OutlineInputBorder(),
             hintText: '1st number'
@@ -96,7 +102,7 @@ class CalculatorFormState extends State<CalculatorForm> {
 
           TextFormField(                            //input field for second number
               controller: secondNumberController,
-            onChanged: (text) {calculate(firstNumberController.text, secondNumberController.text);},
+            onChanged: (text) {calculate(double.parse(firstNumberController.text), double.parse(secondNumberController.text));},
               decoration: const InputDecoration(
               border: OutlineInputBorder(),
               hintText: '2nd number'
@@ -109,55 +115,37 @@ class CalculatorFormState extends State<CalculatorForm> {
 
           Text(                                                    //print calculation results
             firstNumberController.text +" + "+secondNumberController.text + " = " + resultAdd.toString(),
-            style: TextStyle(
-                  color: Colors.grey[800],
-                  fontWeight: FontWeight.w900,
-                  fontFamily: 'Open Sans',
-                  fontSize: 25),
+            style: Theme.of(context).textTheme.bodyText1,
           ),
           Text(
               firstNumberController.text +" - "+secondNumberController.text + " = " + resultSubtract.toString(),
-            style: TextStyle(
-                color: Colors.grey[800],
-                fontWeight: FontWeight.w900,
-                fontFamily: 'Open Sans',
-                fontSize: 25),
+              style: Theme.of(context).textTheme.bodyText1,
           ),
           Text(
               firstNumberController.text +" x "+secondNumberController.text + " = " + resultMultiply.toString(),
-            style: TextStyle(
-                color: Colors.grey[800],
-                fontWeight: FontWeight.w900,
-                fontFamily: 'Open Sans',
-                fontSize: 25),
+            style: Theme.of(context).textTheme.bodyText1,
           ),
           Text(
               firstNumberController.text +" : "+secondNumberController.text + " = " + resultDivide.toString(),
-            style: TextStyle(
-                color: Colors.grey[800],
-                fontWeight: FontWeight.w900,
-                fontFamily: 'Open Sans',
-                fontSize: 25),          ),
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
           Text(
               firstNumberController.text +" ^ "+secondNumberController.text + " = " + resultPower.toString(),
-            style: TextStyle(
-                color: Colors.grey[800],
-                fontWeight: FontWeight.w900,
-                fontFamily: 'Open Sans',
-                fontSize: 25),          ),
-        ElevatedButton(
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+          ElevatedButton(
             onPressed: clearFields,
-            child: const Text('Clear fields'),
-            ),
+              child: const Text('Clear fields'),
+          ),
 
           ElevatedButton(
-          child: const Text('Use km to miles converter'),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const Converter()),
-            );
-            },
+            child: const Text('Use km to miles converter'),
+              onPressed: () {
+                Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const Converter()),
+                );
+              },
           ),
         ],
       ),
